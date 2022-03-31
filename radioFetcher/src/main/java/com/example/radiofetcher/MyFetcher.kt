@@ -12,12 +12,12 @@ import java.net.http.HttpResponse.BodyHandlers
 import java.time.Duration
 
 
-fun main(args: Array<String>) {
-    val fetcher = MyFetcher(File("/home/seprjanku/tmp/radio"))
-    fetcher.processUrl("https://internetradiouk.com/genre/rock/", "rock")
-    fetcher.processUrl("https://internetradiouk.com/genre/talk/", "talk")
+fun main() {
+    val fetcher = MyFetcher(File("<Path to cache>"))
+    fetcher.processUrl("<URL of rock stations>", "rock")
+    fetcher.processUrl("<URL of rock talk>", "talk")
 
-    val resultDir = File("/home/seprjanku/tmp/radio_result")
+    val resultDir = File("<Path to result>")
     val icons = File(resultDir, "icons_urls.txt")
     icons.outputStream().bufferedWriter()
         .use { it.write(fetcher.icons.toList().joinToString("\n")) }
@@ -42,7 +42,6 @@ class MyFetcher(val cacheDir: File) {
         // find <li class="item-6"><span><a
         doc.select("li > span > a").forEach {
             val href = it.attr("href")
-            val title = it.attr("title")
             val icon = it.child(0).attr("src")
             val base = href.substringAfter("#")
             val json = processRadio(base)
@@ -114,9 +113,9 @@ class MyFetcher(val cacheDir: File) {
         }
     }
 
-    fun getDescription(url: String, slim: String): String = try {
+    private fun getDescription(url: String, cacheFile: String): String = try {
         if (url.length > 7) { // check at least http://
-            val doc = Jsoup.parse(fetch(url, "$slim.html"))
+            val doc = Jsoup.parse(fetch(url, cacheFile))
             //     <meta property="og:description"
             //          content="All the top adult contemporary radio stations. An easy page to listen to music, news and other fun!">
             doc.selectFirst("meta[property=og:description]")?.attr("content") ?: ""
