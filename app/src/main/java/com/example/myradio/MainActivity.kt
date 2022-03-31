@@ -15,9 +15,6 @@ import com.example.myradio.ui.theme.MyRadioTheme
 
 class MainActivity : ComponentActivity() {
     private val playerModel: PlayerModel by lazy {
-        val activity = requireNotNull(this.application) {
-            "You can only access the viewModel after attach()"
-        }
         ViewModelProvider(this).get(PlayerModel::class.java)
     }
 

@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.myradio.model.*
 import com.example.myradio.ui.theme.MyRadioTheme
 import java.io.IOException
@@ -102,8 +104,12 @@ fun StationRow(
                     .clickable { onStationClicked(station) }
                     .padding(vertical = 4.dp),
             ) {
-                Image(
-                    painter = painterAssets(file = station.station.icon),
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(station.station.icon)
+                        .crossfade(true)
+                        .build(),
+                    placeholder = painterResource(R.drawable.ic_radio_no_image),
                     contentDescription = station.station.title,
                     modifier = Modifier
                         .size(64.dp)
@@ -116,7 +122,7 @@ fun StationRow(
                     Text(
                         text = station.station.description,
                         style = MaterialTheme.typography.body2,
-                        maxLines = if (selected) 2 else 1,
+                        maxLines = if (selected) 4 else 2,
                         overflow = TextOverflow.Ellipsis
                     )
                 }

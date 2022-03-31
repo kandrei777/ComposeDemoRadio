@@ -8,14 +8,13 @@ import com.google.android.exoplayer2.PlaybackException
 
 internal class Player(val playerModel: PlayerModel) :
     com.google.android.exoplayer2.Player.Listener {
-    private val player: ExoPlayer
+    private val player: ExoPlayer = ExoPlayer.Builder(playerModel.getApplication()).build()
 
     companion object {
         val TAG = Player::class.java.simpleName
     }
 
     init {
-        player = ExoPlayer.Builder(playerModel.getApplication()).build()
         player.addListener(this)
     }
 
