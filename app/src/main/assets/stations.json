@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Jazz FM",
+    "description": "Celebrating the world’s greatest jazz, soul and blues from the world’s greatest artists.",
+    "url": "https://planetradio.co.uk/jazz-fm/",
+    "icon" : "jazz-fm.webp",
+    "streams" : [
+      {
+        "mime": "audio/mpeg",
+        "url": "https://stream-al.planetradio.co.uk/jazz.mp3"
+      }
+    ]
+  },
+  {
+    "title": "Absolute Classic Rock",
+    "description": "Just played on Absolute Classic Rock",
+    "url": "https://planetradio.co.uk/absolute-classic-rock/",
+    "icon" : "absolute-aberdeen.png",
+    "streams" : [
+      {
+        "mime": "audio/aac",
+        "url": "https://stream-ar.planetradio.co.uk/absoluteclassicrockhigh.aac"
+      }
+    ]
+  },
+  {
+    "title": "Discover Trance",
+    "description": "Featuring the latest and greatest uplifting trance music available.",
+    "url": "https://www.discovertrance.com/",
+    "icon": "discover-trance-uk.webp",
+    "streams" : [
+      {
+        "mime": "audio/x-mpegurl",
+        "url": "http://uk01.discovertrance.com:9216/listen.pls?sid=1"
+      },
+      {
+        "mime": "audio/mpeg",
+        "url": "http://uk01.discovertrance.com:9216/stream/1/"
+      }
+    ]
+  }
+]
