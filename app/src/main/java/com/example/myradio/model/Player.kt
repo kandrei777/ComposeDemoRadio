@@ -6,7 +6,7 @@ import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
 
 
-internal class Player(val playerModel: PlayerModel) :
+internal class Player(private val playerModel: PlayerModel) :
     com.google.android.exoplayer2.Player.Listener {
     private val player: ExoPlayer = ExoPlayer.Builder(playerModel.getApplication()).build()
 

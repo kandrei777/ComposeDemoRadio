@@ -1,13 +1,11 @@
 package com.example.myradio
 
 import android.graphics.BitmapFactory
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -59,8 +57,8 @@ fun Screen(
         }
     // TODO Add player composable
     ) {
-        Column() {
-            LazyColumn() {
+        Column {
+            LazyColumn {
                 items(stations) { station ->
                     StationRow(
                         station, currentSelectStation?.id == station.id,
@@ -94,7 +92,7 @@ fun StationRow(
     onStationClicked: (StationItem) -> Unit,
     onStreamClicked: (Stream) -> Unit
 ) {
-    Column() {
+    Column {
         Surface(
             elevation = if (selected) 4.dp else 0.dp
         ) {
@@ -112,8 +110,8 @@ fun StationRow(
                     placeholder = painterResource(R.drawable.ic_radio_no_image),
                     contentDescription = station.station.title,
                     modifier = Modifier
+                        .padding(vertical = 4.dp, horizontal = 8.dp)
                         .size(64.dp)
-                        .padding(4.dp)
                 )
                 Column(
                     modifier = Modifier.fillMaxWidth(),
@@ -130,7 +128,7 @@ fun StationRow(
         }
         if (selected) {
             Row {
-                station.station.streams.forEachIndexed() { index, stream ->
+                station.station.streams.forEachIndexed { index, stream ->
                     StationSource(stream, "Src $index") { onStreamClicked(stream) }
                 }
             }
@@ -146,28 +144,6 @@ fun StationSource(stream: Stream, title: String, onClicked: () -> Unit) {
     ) {
         Text(text = title)
         // TODO Add the current stream highlighting
-    }
-}
-
-@Composable
-fun painterAssets(file: String): Painter {
-    // TODO Check if it needs to put the loading into worker thread, changing just to painterResource
-    // does not affect the draw speed.
-    val context = LocalContext.current
-    val imageBitmap = remember(file) {
-        try {
-            context.assets.open(file).use {
-                BitmapFactory.decodeStream(it).asImageBitmap()
-            }
-        } catch (exception: IOException) {
-            exception.printStackTrace()
-            null
-        }
-    }
-    return if (imageBitmap != null) {
-        BitmapPainter(imageBitmap)
-    } else {
-        painterResource(id = R.drawable.ic_radio_no_image)
     }
 }
 
