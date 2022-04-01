@@ -41,10 +41,11 @@ fun ActivityScreen(playerModel: PlayerModel) {
         currentPlayingStation = playerModel.currentPlayingStation,
         currentSelectStation = playerModel.currentSelectStation,
         onStationClicked = playerModel::selectStation,
-        favAction = playerModel.playerAction,
+        favAction = playerModel.fabAction,
         onFavClicked = playerModel::onFavAction,
         lastUserEvent = playerModel.lastUserEvent,
-        onStreamClicked = playerModel::playStream
+        onStreamClicked = playerModel::playStream,
+        selectedStream = playerModel.currentPlayingStream
     )
 }
 
@@ -91,6 +92,7 @@ fun DefaultPreview() {
         favAction = PlayerAction.Cancel,
         onFavClicked = { },
         lastUserEvent = null,
-        onStreamClicked = {}
+        onStreamClicked = {},
+        selectedStream = null
     )
 }

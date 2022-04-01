@@ -8,6 +8,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import java.util.*
 
+/**
+ * A model to handle player actions
+ */
 class PlayerModel(application: Application) : AndroidViewModel(application) {
     private var _state by mutableStateOf(PlayerState.Ready)
     private var player: Player
@@ -15,11 +18,17 @@ class PlayerModel(application: Application) : AndroidViewModel(application) {
     private var currentSelectStationPosition by mutableStateOf(-1)
     private var _lastUserEvent by mutableStateOf<UserNotification?>(null)
 
+    /** List of stations */
     var stations = mutableStateListOf<StationItem>()
         private set
 
-    val playerAction: PlayerAction? get() = _state.fabAction
+    /** Quick access action. */
+    val fabAction: PlayerAction? get() = _state.fabAction
+    /** Publishes user notifications. */
     val lastUserEvent: UserNotification? get() = _lastUserEvent
+    /** A stream currently playing. */
+    var currentPlayingStream by mutableStateOf<Stream?>(null)
+            private set
 
     init {
         Store.loadData(application).map { StationItem(it, UUID.randomUUID()) }
@@ -45,7 +54,7 @@ class PlayerModel(application: Application) : AndroidViewModel(application) {
             message("Cannot find stream")
         } else {
             currentPlayingStationPosition = currentSelectStationPosition
-            message("Start ${currentPlayingStation?.station?.title}, stream $index")
+            currentPlayingStream = stream
             player.play(stream)
         }
     }

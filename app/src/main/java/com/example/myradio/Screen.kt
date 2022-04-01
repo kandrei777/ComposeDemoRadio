@@ -1,6 +1,5 @@
 package com.example.myradio
 
-import android.graphics.BitmapFactory
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,11 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,7 +18,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.myradio.model.*
 import com.example.myradio.ui.theme.MyRadioTheme
-import java.io.IOException
 
 @Composable
 fun Screen(
@@ -32,6 +26,7 @@ fun Screen(
     currentSelectStation: StationItem?,
     lastUserEvent: UserNotification?,
     favAction: PlayerAction?,
+    selectedStream: Stream?,
 
     onStreamClicked: (Stream) -> Unit,
     onStationClicked: (StationItem) -> Unit,
@@ -61,7 +56,9 @@ fun Screen(
             LazyColumn {
                 items(stations) { station ->
                     StationRow(
-                        station, currentSelectStation?.id == station.id,
+                        station,
+                        isSelected = currentSelectStation?.id == station.id,
+                        selectedStream = selectedStream,
                         onStationClicked = onStationClicked,
                         onStreamClicked = onStreamClicked
                     )
@@ -88,13 +85,14 @@ fun PlayerActionButton(action: PlayerAction, onAction: (PlayerAction) -> Unit) {
 @Composable
 fun StationRow(
     station: StationItem,
-    selected: Boolean,
+    isSelected: Boolean,
+    selectedStream: Stream?,
     onStationClicked: (StationItem) -> Unit,
     onStreamClicked: (Stream) -> Unit
 ) {
     Column {
         Surface(
-            elevation = if (selected) 4.dp else 0.dp
+            elevation = if (isSelected) 4.dp else 0.dp
         ) {
 
             Row(
@@ -120,16 +118,16 @@ fun StationRow(
                     Text(
                         text = station.station.description,
                         style = MaterialTheme.typography.body2,
-                        maxLines = if (selected) 4 else 2,
+                        maxLines = if (isSelected) 4 else 2,
                         overflow = TextOverflow.Ellipsis
                     )
                 }
             }
         }
-        if (selected) {
+        if (isSelected) {
             Row {
                 station.station.streams.forEachIndexed { index, stream ->
-                    StationSource(stream, "Src $index") { onStreamClicked(stream) }
+                    StationSource("Src $index", stream == selectedStream) { onStreamClicked(stream) }
                 }
             }
         }
@@ -137,13 +135,22 @@ fun StationRow(
 }
 
 @Composable
-fun StationSource(stream: Stream, title: String, onClicked: () -> Unit) {
-    OutlinedButton(
-        onClick = onClicked,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp)
-    ) {
+fun StationSource(title: String, isSelected: Boolean, onClicked: () -> Unit) {
+    val content: @Composable RowScope.() -> Unit = {
         Text(text = title)
-        // TODO Add the current stream highlighting
+    }
+    if (isSelected) {
+        OutlinedButton(
+            onClick = onClicked,
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp),
+            content = content
+        )
+    } else {
+        Button(
+            onClick = onClicked,
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp),
+            content = content
+        )
     }
 }
 
@@ -169,7 +176,8 @@ fun StationRowPreview() {
     MyRadioTheme {
         StationRow(
             station = testStationItem,
-            selected = false,
+            isSelected = false,
+            selectedStream = null,
             onStationClicked = {},
             onStreamClicked = {}
         )
@@ -182,7 +190,9 @@ fun StationSelectedRowPreview() {
     MyRadioTheme {
         StationRow(
             station = testStationItem,
-            true, {},
+            isSelected = true,
+            selectedStream = testStationItem.station.streams[0],
+            onStationClicked = {},
             onStreamClicked = {}
         )
     }
