@@ -13,17 +13,19 @@ import java.time.Duration
 
 
 fun main() {
-    val fetcher = MyFetcher(File("<Path to cache>"))
-    fetcher.processUrl("<URL of rock stations>", "rock")
-    fetcher.processUrl("<URL of rock talk>", "talk")
+    val fetcher = MyFetcher(FetcherConfig.cacheDirectory)
+    FetcherConfig.sources.forEach {
+        fetcher.processUrl(it.url, it.genre)
+    }
 
-    val resultDir = File("<Path to result>")
+    val resultDir = FetcherConfig.resultDirectory
     val icons = File(resultDir, "icons_urls.txt")
     icons.outputStream().bufferedWriter()
         .use { it.write(fetcher.icons.toList().joinToString("\n")) }
     File(resultDir, "stations.json").outputStream().bufferedWriter().use {
         it.write(Gson().toJson(fetcher.stations.toList().map { it.second }))
     }
+    println("* Added ${fetcher.stations.size} stations total")
 }
 
 class MyFetcher(val cacheDir: File) {
@@ -37,7 +39,9 @@ class MyFetcher(val cacheDir: File) {
     }
 
     fun processUrl(url: String, slim: String) {
-        println("Process $url")
+        require(url.isNotBlank())
+        println("# Process $url")
+        var counter = 0
         val doc = Jsoup.parse(fetch(url, "$slim.html"))
         // find <li class="item-6"><span><a
         doc.select("li > span > a").forEach {
@@ -58,17 +62,19 @@ class MyFetcher(val cacheDir: File) {
                     )
                     icons.add(icon)
                     if (stations.contains(station.id)) {
-                        println("Duplicate:\n$station\n${stations[station.id]} ")
+                        println("# Duplicate:\n## $station\n## ${stations[station.id]} ")
                     } else {
                         stations[station.id] = station
+                        counter++
                     }
                 }
             }
         }
+        println("** Added $counter stations as $slim")
     }
 
     private fun processRadio(slim: String) =
-        parseStation(fetch("https://api.webrad.io/data/streams/42/$slim", "$slim.json"))
+        parseStation(fetch(FetcherConfig.getStationUrl(slim), "$slim.json"))
 
     private fun parseStation(data: String): WebData? {
         return Gson().fromJson(data, WebData::class.java)
@@ -76,8 +82,8 @@ class MyFetcher(val cacheDir: File) {
 
     @Throws(Exception::class)
     fun fetch(url: String, fileName: String): String {
-        val file = File(cacheDir, fileName)
-        return if (file.exists()) {
+        val file = if (fileName.length > 1) File(cacheDir, fileName) else null
+        return if (file != null && file.exists()) {
             file.inputStream().bufferedReader().use { it.readText() }
         } else {
             try {
@@ -104,21 +110,24 @@ class MyFetcher(val cacheDir: File) {
                     BodyHandlers.ofString()
                 )
                 val str = response.body()
-                file.outputStream().bufferedWriter().use { it.write(str) }
+                file?.apply {
+                    outputStream().bufferedWriter().use { it.write(str) }
+                }
                 str
             } catch (exception: Exception) {
-                println("Can't fetch $url: ${exception.message}")
+                println("E: Can't fetch $url: ${exception.message}")
                 throw exception
             }
         }
     }
 
-    private fun getDescription(url: String, cacheFile: String): String = try {
+    fun getDescription(url: String, cacheFile: String): String = try {
         if (url.length > 7) { // check at least http://
             val doc = Jsoup.parse(fetch(url, cacheFile))
             //     <meta property="og:description"
             //          content="All the top adult contemporary radio stations. An easy page to listen to music, news and other fun!">
-            doc.selectFirst("meta[property=og:description]")?.attr("content") ?: ""
+            doc.selectFirst("meta[property=og:description]")?.attr("content") ?:
+            doc.selectFirst("meta[name=description]")?.attr("content") ?: ""
         } else {
             ""
         }
