@@ -10,6 +10,9 @@ This demo project focuses on:
 - ViewModel
 - Media player (ExoPlayer) to play from internet sources 
 - Good user experience with Android audio: tracking audion focus, phone and bluetooth states. (TODO)
+- Navigation (TODO)
+- Clean architecture (TODO)
+- Service (TODO)
 
 You can listen to over 150+ internet radio stations of different genres: Rock, Talk, News,  Word music.
 
