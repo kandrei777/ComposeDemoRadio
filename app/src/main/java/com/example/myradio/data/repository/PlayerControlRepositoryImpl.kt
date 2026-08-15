@@ -91,6 +91,7 @@ class PlayerControlRepositoryImpl @Inject constructor(
                     }
 
                     currentState.copy(
+                        currentUri = _controller.value?.currentMediaItem?.mediaId,
                         status = newStatus,
                         error = if (clearError) null else currentState.error
                     )
