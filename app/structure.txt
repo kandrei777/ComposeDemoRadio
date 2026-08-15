@@ -1,0 +1,32 @@
+com.example.myradio/
+│
+├── data/
+│   ├── database/
+│   │   ├── dao/
+│   │   │   └── RadioDao.kt
+│   │   ├── entities/
+│   │   │   └── RadioStationEntity.kt      # Чистая таблица Room
+│   │   ├── models/
+│   │   │   └── StationWithFavorites.kt    # Производные POJO/Relations для базы
+│   │   └── AppDatabase.kt
+│   │
+│   ├── model/
+│   │   └── StationJson.kt                # DTO для парсинга Сети/GSON
+│   │
+│   └── repository/
+│       ├── RadioRepositoryImpl.kt
+│       └── PlayerControlRepositoryImpl.kt
+│
+├── di/
+│   ├── DataModule.kt
+│   └── PlayerModule.kt
+│
+├── service/
+│   └── PlaybackService.kt                # ⚡ Фоновый сервис Media3
+│
+├── ui/                           # Слой представления (Compose и ViewModel)
+│   ├── MainScreen.kt
+│   └── MainViewModel.kt
+│
+└── RadioApplication.kt           # Корень приложения (с аннотацией @HiltAndroidApp)
+

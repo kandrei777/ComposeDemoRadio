@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "result": {
+    "station": {
+      "acrCloud": false,
+      "id": 33147,
+      "name": "fuse-fm",
+      "signal": "Stream",
+      "title": "Fuse FM",
+      "url": "https:\/\/fusefmmanchester.wordpress.com\/",
+      "usePopup": false
+    },
+    "streams": [
+      {
+        "id": 198577,
+        "isContainer": true,
+        "mediaType": "HTML",
+        "mime": "text\/html",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/fusefmmanchester.wordpress.com\/"
+      },
+      {
+        "id": 384342,
+        "isContainer": true,
+        "mediaType": "MP3",
+        "mime": "audio\/x-mpegurl",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/streaming.radio.co\/s53051f118\/listen.m3u"
+      },
+      {
+        "id": 384343,
+        "isContainer": false,
+        "mediaType": "MP3",
+        "mime": "audio\/mpeg",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/streaming.radio.co\/s53051f118\/listen"
+      }
+    ]
+  }
+}

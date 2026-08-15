@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "result": {
+    "station": {
+      "acrCloud": false,
+      "id": 34721,
+      "name": "swinging-england",
+      "signal": "Stream",
+      "title": "Swinging Radio England",
+      "url": "https:\/\/swingingradioengland.weebly.com\/",
+      "usePopup": false
+    },
+    "streams": [
+      {
+        "id": 469099,
+        "isContainer": true,
+        "mediaType": "AAC",
+        "mime": "audio\/x-mpegurl",
+        "posX": 0,
+        "posY": 0,
+        "url": "http:\/\/jenny.torontocast.com:19004\/stream.m3u"
+      },
+      {
+        "id": 467678,
+        "isContainer": false,
+        "mediaType": "AAC",
+        "mime": "audio\/aac",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/jenny.torontocast.com:9004\/stream"
+      },
+      {
+        "id": 309503,
+        "isContainer": true,
+        "mediaType": "HTML",
+        "mime": "text\/html",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/swingingradioengland.weebly.com\/"
+      }
+    ]
+  }
+}

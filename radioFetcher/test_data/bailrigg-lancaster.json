@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "result": {
+    "station": {
+      "acrCloud": false,
+      "id": 5950,
+      "name": "bailrigg-lancaster",
+      "signal": "87.7 FM",
+      "title": "Bailrigg FM (Lancaster)",
+      "url": "https:\/\/bailriggfm.co.uk\/",
+      "usePopup": false
+    },
+    "streams": [
+      {
+        "id": 551461,
+        "isContainer": true,
+        "mediaType": "AAC",
+        "mime": "audio\/x-mpegurl",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/bfm-live.lancs.ac.uk:9000\/48.m4a.m3u"
+      },
+      {
+        "id": 551459,
+        "isContainer": false,
+        "mediaType": "AAC",
+        "mime": "audio\/aac",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/stream.bailriggfm.co.uk\/listen\/bfm\/48.m4a"
+      },
+      {
+        "id": 397398,
+        "isContainer": true,
+        "mediaType": "HTML",
+        "mime": "text\/html",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/bailriggradio.lancastersu.co.uk\/player\/"
+      }
+    ]
+  }
+}

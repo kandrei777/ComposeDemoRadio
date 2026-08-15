@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "result": {
+    "station": {
+      "acrCloud": true,
+      "id": 1241,
+      "name": "classic-rock",
+      "signal": "Stream",
+      "title": "Absolute Classic Rock",
+      "url": "https:\/\/hellorayo.co.uk\/absolute-classic-rock\/",
+      "usePopup": true
+    },
+    "streams": [
+      {
+        "id": 529624,
+        "isContainer": true,
+        "mediaType": "HTML",
+        "mime": "text\/html",
+        "posX": 0,
+        "posY": 0,
+        "url": "https:\/\/hellorayo.co.uk\/absolute-classic-rock\/play\/"
+      }
+    ]
+  }
+}

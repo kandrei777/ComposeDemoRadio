@@ -1,0 +1,117 @@
+[versions]
+# Системные плагины и компиляция
+android-gradle-plugin = "8.13.1"
+kotlin = "2.0.20"
+ksp = "2.0.20-1.0.25"
+
+# AndroidX / Core & Lifecycle
+androidx-core-ktx = "1.13.1"
+androidx-lifecycle = "2.8.6"
+androidx-activity-compose = "1.9.2"
+
+# Navigation & DI
+androidx-navigation = "2.8.2"
+hilt = "2.55"
+hilt-navigation-compose = "1.2.0"
+
+# Jetpack Compose UI
+androidx-compose-bom = "2024.09.03"
+
+# Database and media3 lib
+room = "2.7.1"
+androidx-media3 = "1.4.1"
+
+# Сторонние библиотеки
+coil = "2.7.0"
+jsoup = "1.18.1"
+gson = "2.11.0"
+timber = "5.0.1"
+
+# Тестирование
+junit = "4.13.2"
+androidx-junit = "1.2.1"
+robolectric = "4.16.1"
+androidx-test-core = "1.7.0"
+androidx-test-runner = "1.6.2"
+
+[libraries]
+# Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+
+# Core & Lifecycle
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core-ktx" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
+
+# Jetpack Compose UI (BOM)
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "androidx-compose-bom" }
+androidx-ui = { module = "androidx.compose.ui:ui" }
+androidx-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-material3 = { module = "androidx.compose.material3:material3" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+
+# Navigation & DI (Hilt)
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+
+# Room Database
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# Media3 (ExoPlayer)
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
+androidx-media3-session = { module = "androidx.media3:media3-session", version.ref = "androidx-media3" }
+androidx-media3-datasource-okhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
+
+# Сторонние библиотеки
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Тестирование
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test-core" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "room" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+
+[bundles]
+# Полный пак для работы с UI и Compose
+androidx-compose = [
+    "androidx-ui",
+    "androidx-ui-graphics",
+    "androidx-ui-tooling-preview",
+    "androidx-material3",
+    "androidx-material-icons-extended"
+]
+# Единый бандл для тестирования
+testing-robolectric = [
+    "junit",
+    "androidx-test-ext-junit",
+    "robolectric",
+    "androidx-test-core",
+]
+
+# Андроид тесты
+testing-android = [
+    "room-testing",
+    "androidx-test-ext-junit",
+    "androidx-test-runner"
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+google-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+androidx-room = { id = "androidx.room", version.ref = "room" }
