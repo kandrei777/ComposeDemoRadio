@@ -15,6 +15,8 @@ This demo project focuses on:
 
 You can listen to over 150+ internet radio stations of different genres: Rock, Talk, News,  Word music.
 
+Demo of the application (Russian): https://youtube.com/shorts/agp1raLPUSY
+
 ⚠️ **Важное примечание / Important Note**
 Этот проект создан исключительно в демонстрационных целях (портфолио) и распространяется на условиях некоммерческой лицензии **CC BY-NC 4.0**.
 Коммерческое использование исходного кода, его модификаций или готовой сборки приложения (включая публикацию в магазинах приложений ради прибыли или рекламы) **категорически запрещено**.
